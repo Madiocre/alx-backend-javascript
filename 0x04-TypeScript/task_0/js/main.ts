@@ -21,47 +21,69 @@ const student2: Student = {
 
 const studentList: Array<Student> = [student1, student2];
 
-const body: HTMLBodyElement = document.getElementsByTagName("body")[0];
-const table: HTMLTableElement = document.createElement('table');
-const thead: HTMLTableSectionElement = document.createElement('thead');
-const th1: HTMLTableCellElement = document.createElement('th');
-const th2: HTMLTableCellElement = document.createElement('th');
+const styleSheet = `
+  html {
+    margin: 0;
+    height: 100%;
+  }
+  body {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80%;
+    margin: 10%;
+    /* Added a background color and a font family for body */
+    background-color: #f5f5f5;
+    font-family: Arial, sans-serif;
+  }
+  table {
+    border-collapse: collapse;
+    /* Increased cell padding and border width */
+    padding: 15px;
+    border: 2px solid #ddd;
+    width: 50%; /* Set a fixed width for the table */
+  }
+  thead {
+    font-weight: bold;
+  }
+  td {
+    padding: 10px;
+    border: 1px solid gray;
+    cursor: pointer;
+  }
+  td:hover {
+    background: gainsboro;
+  }
 
-th1.innerText = 'First Name';
-th2.innerText = 'Location';
-th1.style.border = '1px solid gray';
-th2.style.border = '1px solid gray';
-th1.style.padding = '.5rem';
-th2.style.padding = '.5rem';
-table.style.border = '1px solid gray';
-table.style.borderCollapse = 'collapse';
+  td:nth-child(1) {
+    text-align: center;
+  }
+';
 
+export const displayStudents = (students: Array<Student>): void => {
+  const table = document.createElement('table');
+  const tableHead = document.createElement('thead');
+  const headRow = document.createElement('tr');
+  const tableBody = document.createElement('tbody');
+  headRow.insertAdjacentHTML('beforeend', '<td>FirstName</td>');
+  headRow.insertAdjacentHTML('beforeend', '<td>Location</td>');
+  tableHead.insertAdjacentElement('beforeend', headRow);
 
+  for (const student of students) {
+    const bodyRow = document.createElement('tr');
+    bodyRow.insertAdjacentHTML('beforeend', `<td>${student.firstName}</td>`);
+    bodyRow.insertAdjacentHTML('beforeend', `<td>${student.location}</td>`);
+    tableBody.insertAdjacentElement('beforeend', bodyRow);
+  }
 
-thead.append(th1);
-thead.append(th2);
+  table.insertAdjacentElement('beforeend', tableHead);
+  table.insertAdjacentElement('beforeend', tableBody);
+  document.body.insertAdjacentElement('beforeend', table);
+};
 
-table.append(thead);
-
-
-studentList.forEach((student) => {
-  const row: HTMLTableRowElement = document.createElement('tr');
-
-  const column1: HTMLTableCellElement = document.createElement('td');
-  const column2: HTMLTableCellElement = document.createElement('td');
-
-  column1.innerText = student.firstName;
-  column2.innerText = student.lastName;
-
-  column1.style.border = '1px solid gray';
-  column2.style.border = '1px solid gray';
-  column1.style.padding = '.5rem';
-  column2.style.padding = '.5rem';
-
-  row.append(column1);
-  row.append(column2)
-
-  table.append(row);
-});
-
-body.append(table)
+displayStudents(studentsList);
+const styleSheetElement = document.createElement('style');
+styleSheetElement.innerHTML = styleSheet;
+document.head.insertAdjacentElement('beforeend', styleSheetElement);
+document.title = 'TS Task_0';
