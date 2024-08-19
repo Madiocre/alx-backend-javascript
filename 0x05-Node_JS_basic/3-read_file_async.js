@@ -3,7 +3,7 @@ const fs = require('node:fs').promises;
 const countStudents = async (path) => {
   try {
     const data = await fs.readFile(path, 'utf8');
-    const lines = data.trim().split('\n').filter(line => line.trim() !== '');
+    const lines = data.trim().split('\n').filter((line) => line.trim() !== '');
 
     // const header = lines[0].split(',');
     // const fieldIndex = {
@@ -27,7 +27,7 @@ const countStudents = async (path) => {
       if (!studentsByField[field]) {
         studentsByField[field] = {
           count: 0,
-          list: []
+          list: [],
         };
       }
 
@@ -40,7 +40,6 @@ const countStudents = async (path) => {
     for (const [field, data] of Object.entries(studentsByField)) {
       console.log(`Number of students in ${field}: ${data.count}. List: ${data.list.join(', ')}`);
     }
-
   } catch (err) {
     console.error('Cannot load the database');
   }

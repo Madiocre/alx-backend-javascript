@@ -4,7 +4,7 @@ const countStudents = (path) => {
   try {
     const data = fs.readFileSync(path, 'utf8');
 
-    const lines = data.trim().split('\n').filter(line => line.trim() !== '');
+    const lines = data.trim().split('\n').filter((line) => line.trim() !== '');
 
     // const header = lines[0].split(',');
     // const fieldIndex = {
@@ -24,13 +24,13 @@ const countStudents = (path) => {
         continue;
       }
 
-      const field = fields[/*fieldIndex.field*/3].trim();
-      const firstname = fields[/*fieldIndex.firstname*/0].trim();
+      const field = fields[/* fieldIndex.field */3].trim();
+      const firstname = fields[/* fieldIndex.firstname */0].trim();
 
       if (!studentsByField[field]) {
         studentsByField[field] = {
           count: 0,
-          list: []
+          list: [],
         };
       }
 
@@ -43,7 +43,6 @@ const countStudents = (path) => {
     for (const [field, data] of Object.entries(studentsByField)) {
       console.log(`Number of students in ${field}: ${data.count}. List: ${data.list.join(', ')}`);
     }
-
   } catch (err) {
     console.error('Cannot load the database');
   }

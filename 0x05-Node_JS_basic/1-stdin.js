@@ -6,9 +6,11 @@ const rl = readline.createInterface({ input, output });
 rl.question('Welcome to Holberton School, what is your name?\n', (name) => {
   // TODO: Log the name in a database
   console.log(`Your name is:  ${name}`);
+  rl.close();
 
-  if (!input.isTTY) {
-    console.log('This important software is now closing');
-  }
-  rl.close()
+  process.on('exit', () => {
+    if (!input.isTTY) {
+      console.log('This important software is now closing');
+    }
+  });
 });
