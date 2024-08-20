@@ -1,11 +1,7 @@
 import readDatabase from '../utils';
 
-
 const VALID_MAJORS = ['CS', 'SWE'];
 
-/**
- * Contains route handlers.
- */
 class StudentsController {
   static getAllStudents(request, response) {
     const dataPath = process.argv.length > 2 ? process.argv[2] : '';
